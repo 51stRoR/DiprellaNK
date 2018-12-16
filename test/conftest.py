@@ -7,7 +7,7 @@ from page_objects.main_page import MainPage
 
 
 def pytest_addoption(parser):
-    parser.addoption("--firefox", action='store_true', default=False, help="test on Firefox browser")
+    parser.addoption("--firefox", action='store_true', default=False, help="Start Firefox WebDriver")
     parser.addoption("--chrome", action='store_true', default=False, help="Start Google Chrome WebDriver")
     parser.addoption("--input-data-path", action='store', help="path to file with input data")
 
