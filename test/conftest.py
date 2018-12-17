@@ -39,4 +39,4 @@ def pytest_generate_tests(metafunc):
     params_list = list()
     with open((pytest.config.getoption("--input-data-path")), 'r') as data:
         params_list = list(csv.reader(data))
-    metafunc.parametrize("email, password, incorrect_email, incorrect_password", tuple(params_list))
+    metafunc.parametrize("link, email, password, incorrect_email, incorrect_password", tuple(params_list))

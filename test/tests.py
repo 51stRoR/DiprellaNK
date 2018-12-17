@@ -2,12 +2,13 @@ import time
 
 
 class TestPages(object):
-    def test_main_page(self, email, password, incorrect_email, incorrect_password):
+    def test_main_page(self, link, email, password, incorrect_email, incorrect_password):
+        self.main_page.get_app_link(link)
         assert self.main_page.diprella_header.is_displayed(), "Header isn't displayed"
         assert self.main_page.signin_link.is_displayed(), "Signin link not found"
 
-    def test_login_with_correct_credentials(self, email, password, incorrect_email, incorrect_password):
-        signin_page = self.main_page.click_on_signin_link()
+    def test_login_with_correct_credentials(self, link, email, password, incorrect_email, incorrect_password):
+        signin_page = self.main_page.get_app_link(link).click_on_signin_link()
         assert signin_page.diprella_logo.is_displayed(), "Diprella logo isn't shown"
         assert signin_page.signup_link.is_displayed(), "SignUp link isn't shown"
         assert signin_page.facebook_login.is_displayed(), "Facebook signin button isn't shown"
@@ -24,8 +25,8 @@ class TestPages(object):
         assert workspace.recommendations.is_displayed(), "Recommended courses isn't shown"
         assert workspace.popular.is_displayed(), "Popular courses isn't shown"
 
-    def test_login_with_incorrect_email(self, email, password, incorrect_email, incorrect_password):
-        signin_page = self.main_page.click_on_signin_link()
+    def test_login_with_incorrect_email(self, link, email, password, incorrect_email, incorrect_password):
+        signin_page = self.main_page.get_app_link(link).click_on_signin_link()
         assert signin_page.diprella_logo.is_displayed(), "Diprella logo isn't shown"
         assert signin_page.signup_link.is_displayed(), "SignUp link isn't shown"
         assert signin_page.facebook_login.is_displayed(), "Facebook signin button isn't shown"
@@ -37,8 +38,8 @@ class TestPages(object):
         signin_page.enter_email(incorrect_email).enter_password(password).click_on_signin_button_incorrect_email()
         assert signin_page.incorrect_email_message.is_displayed(), "Message about incorrect email isn't shown"
 
-    def test_login_with_incorrect_pass(self, email, password, incorrect_email, incorrect_password):
-        signin_page = self.main_page.click_on_signin_link()
+    def test_login_with_incorrect_pass(self, link, email, password, incorrect_email, incorrect_password):
+        signin_page = self.main_page.get_app_link(link).click_on_signin_link()
         assert signin_page.diprella_logo.is_displayed(), "Diprella logo isn't shown"
         assert signin_page.signup_link.is_displayed(), "SignUp link isn't shown"
         assert signin_page.facebook_login.is_displayed(), "Facebook signin button isn't shown"

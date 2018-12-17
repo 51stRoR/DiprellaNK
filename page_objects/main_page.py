@@ -13,14 +13,17 @@ from page_objects.signin_page import SignInPage
 
 class MainPage(object):
     def __init__(self, web_driver: WebDriver):
-        # Initialize web driver
         self.driver = web_driver
-        self.driver.get("https://demo.diprella.com")
+        self.diprella_header = 0
+        self.signin_link = 0
 
-        # Instantiating web elements
-        self.diprella_header = WebDriverWait(self.driver, 10).until(
+    def get_app_link(self, link):
+        self.driver.get(link)
+        self.diprella_header = WebDriverWait(self.driver, 20).until(
             EC.visibility_of_element_located((By.CSS_SELECTOR, ".main__wrapper")))
-        self.signin_link = self.driver.find_element_by_css_selector(".header__nav-link")
+        self.signin_link = WebDriverWait(self.driver, 20).until(
+            EC.visibility_of_element_located((By.CSS_SELECTOR,".header__nav-link")))
+        return self
 
     def click_on_signin_link(self):
         self.signin_link.click()
