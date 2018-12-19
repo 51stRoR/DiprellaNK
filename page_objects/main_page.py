@@ -17,12 +17,12 @@ class MainPage(object):
         self.diprella_header = 0
         self.signin_link = 0
 
-    def get_mainpage_url(self, url):
-        self.driver.get(url)
+    def get_app_link(self, link):
+        self.driver.get(link)
         self.diprella_header = WebDriverWait(self.driver, 20).until(
             EC.visibility_of_element_located((By.CSS_SELECTOR, ".main__wrapper")))
         self.signin_link = WebDriverWait(self.driver, 20).until(
-            EC.visibility_of_element_located((By.CSS_SELECTOR,".header__nav-url")))
+            EC.visibility_of_element_located((By.CSS_SELECTOR,".header__nav-link")))
         return self
 
     def click_on_signin_link(self):
