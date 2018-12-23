@@ -1,5 +1,3 @@
-import os
-import time
 import pytest
 from selenium import webdriver
 from allure_commons._allure import step, attach

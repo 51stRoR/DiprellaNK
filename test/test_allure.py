@@ -36,14 +36,16 @@ class TestPages(object):
             assert workspace.diprella_logo.is_displayed(), "Diprella logo isn't shown"
         with allure.step("Check that Course search field is present on the page and displayed"):
             assert workspace.course_search.is_displayed(), "Course search field isn't shown"
-        with allure.step("Check that Lector menu is present on the page and displayed"):
-            assert workspace.lector_menu.is_displayed(), "Lector menu isn't shown"
-        with allure.step("Check that User menu is present on the page and displayed"):
-            assert workspace.user_menu.is_displayed(), "User menu isn't shown"
         with allure.step("Check that Recommended courses section is present on the page and displayed"):
             assert workspace.recommendations.is_displayed(), "Recommended courses section isn't shown"
         with allure.step("Check that Recommended courses section is present on the page and displayed"):
             assert workspace.popular.is_displayed(), "Popular courses section isn't shown"
+        workspace.open_lector_menu()
+        with allure.step("Check that Lector menu is present on the page and displayed"):
+            assert workspace.lector_menu.is_displayed(), "Lector menu isn't shown"
+        workspace.open_user_menu()
+        with allure.step("Check that User menu is present on the page and displayed"):
+            assert workspace.user_menu.is_displayed(), "User menu isn't shown"
 
     @allure.title("Verify that user can not login with incorrect email")
     @allure.description_html("When <b>user</b> enter incorrect email, \

@@ -20,10 +20,12 @@ class TestPages(object):
         workspace = signin_page.enter_email(email).enter_password(password).click_on_signin_button_correct_creds()
         assert workspace.diprella_logo.is_displayed(), "Diprella logo isn't shown"
         assert workspace.course_search.is_displayed(), "Course search field isn't shown"
-        assert workspace.lector_menu.is_displayed(), "Lector menu field isn't shown"
-        assert workspace.user_menu.is_displayed(), "User menu field isn't shown"
         assert workspace.recommendations.is_displayed(), "Recommended courses isn't shown"
         assert workspace.popular.is_displayed(), "Popular courses isn't shown"
+        workspace.open_lector_menu()
+        assert workspace.lector_menu.is_displayed(), "Lector menu isn't shown"
+        workspace.open_user_menu()
+        assert workspace.user_menu.is_displayed(), "User menu isn't shown"
 
     def test_login_with_incorrect_email(self, url, email, password, incorrect_email, incorrect_password):
         signin_page = self.main_page.get_url(url).click_on_signin_link()
