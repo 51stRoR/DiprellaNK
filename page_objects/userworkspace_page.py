@@ -3,6 +3,8 @@ import time
 import pytest
 from selenium import webdriver
 from selenium.webdriver.remote.webdriver import WebDriver
+from allure_commons._allure import step, attach
+from allure import attachment_type
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -19,7 +21,11 @@ class UserWorkspacePage(object):
             EC.visibility_of_element_located((By.CSS_SELECTOR, ".header__logo")))
         self.course_search = self.driver.find_element_by_xpath("//input[@id='search' and @type='text']")
         self.lector_menu = self.driver.find_element_by_xpath("//nav/a/span[text()='Лектор']")
-        # self.notification_menu =  ???
         self.user_menu = self.driver.find_element_by_xpath("//nav/app-profile-dropdown")
         self.recommendations = self.driver.find_element_by_xpath("//section[@class='recomendations'][1]")
         self.popular = self.driver.find_element_by_xpath("//section[@class='recomendations'][2]")
+        attach(
+            self.driver.get_screenshot_as_png(),
+            name="User workspace page screenshot",
+            attachment_type=attachment_type.PNG
+        )

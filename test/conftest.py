@@ -2,6 +2,8 @@ import csv
 import pytest
 import os
 from selenium import webdriver
+from allure_commons._allure import attach
+from allure import attachment_type
 
 from page_objects.main_page import MainPage
 
@@ -9,7 +11,7 @@ from page_objects.main_page import MainPage
 def pytest_addoption(parser):
     parser.addoption("--firefox", action='store_true', default=False, help="Start Firefox WebDriver")
     parser.addoption("--chrome", action='store_true', default=False, help="Start Google Chrome WebDriver")
-    parser.addoption("--input-data-path", action='store', help="path to file with input data")
+    parser.addoption("--input-data", action='store', help="path to file with input data")
 
 
 @pytest.fixture(scope='class', autouse=True)
@@ -37,6 +39,16 @@ def load_app(request):
 
 def pytest_generate_tests(metafunc):
     params_list = list()
-    with open((pytest.config.getoption("--input-data-path")), 'r') as data:
+    with open((pytest.config.getoption("--input-data")), 'r') as data:
         params_list = list(csv.reader(data))
-    metafunc.parametrize("link, email, password, incorrect_email, incorrect_password", tuple(params_list))
+    metafunc.parametrize("url, email, password, incorrect_email, incorrect_password", tuple(params_list))
+
+
+#### Dealing with the test failure. Taking the page screenshot ###
+def pytest_exception_interact(node, call, report):
+    if report.failed:
+        attach(
+            node.instance.initialized_webdriver.get_screenshot_as_png(),
+            name="Screenshot of the Diprella page on test fail",
+            attachment_type=attachment_type.PNG
+        )
