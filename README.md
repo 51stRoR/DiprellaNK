@@ -3,6 +3,7 @@
 test project
 
 ### 1. usage:
+pytest test/test_base.py [browser] --input-data=path/to/input_data.csv
 pytest test/test_allure.py --alluredir=path/to/dir/for/reportfiles [browser] --input-data=path/to/input_data.csv
 
 browser options:
