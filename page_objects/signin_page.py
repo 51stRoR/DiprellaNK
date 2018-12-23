@@ -53,8 +53,7 @@ class SignInPage(object):
         self.incorrect_email_message = WebDriverWait(self.driver, 15).until(
             EC.visibility_of_element_located(
                 (By.XPATH, "//p[@class='error__text' and ( \
-                           contains(text(), 'Not valid email') or contains(text(), 'Forbidden')\
-                           )]")
+                           contains(text(), 'Not valid email') or contains(text(), 'Forbidden'))]")
             ))
         attach(
             self.driver.get_screenshot_as_png(),
