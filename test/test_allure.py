@@ -11,7 +11,7 @@ class TestPages(object):
         with allure.step("Check that Sign in link present in header and displayed"):
             assert self.main_page.signin_link.is_displayed(), "Signin link not found"
 
-    @allure.title("Verify that user can login with the correct credentials")
+    @allure.title("Verify that user can login with correct credentials")
     @allure.description_html("When <b>user</b> logs into portal, workspace page is loaded")
     def test_login_with_correct_credentials(self, url, email, password, incorrect_email, incorrect_password):
         signin_page = self.main_page.get_url(url).click_on_signin_link()
