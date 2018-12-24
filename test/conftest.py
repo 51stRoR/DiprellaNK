@@ -18,10 +18,10 @@ def pytest_addoption(parser):
 def web_driver_setup(request):
     if pytest.config.getoption("--firefox"):
         request.cls.webdriver = webdriver.Firefox
-        request.cls.webdriver_path = os.path.join("web_drivers", "geckodriver.exe")
+        request.cls.webdriver_path = os.path.join("web_drivers", "geckodriver")
     elif pytest.config.getoption("--chrome"):
         request.cls.webdriver = webdriver.Chrome
-        request.cls.webdriver_path = os.path.join("web_drivers", "chromedriver.exe")
+        request.cls.webdriver_path = os.path.join("web_drivers", "chromedriver")
     else:
         raise ValueError("Browsers except Firefox and Chrome not allowed")
 
