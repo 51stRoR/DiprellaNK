@@ -19,6 +19,7 @@ class MainPage(object):
     @step("Getting url for tests and initialization of the Main page")
     def get_url(self, url):
         self.driver.get(url)
+        self.driver.maximize_window()
         self.diprella_header = WebDriverWait(self.driver, 20).until(
             EC.visibility_of_element_located((By.CSS_SELECTOR, ".main__wrapper")))
         self.signin_link = WebDriverWait(self.driver, 20).until(

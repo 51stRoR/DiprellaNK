@@ -16,7 +16,7 @@ class SignInPage(object):
         self.diprella_logo = WebDriverWait(self.driver, 15).until(
             EC.visibility_of_element_located((By.CSS_SELECTOR, ".page-logo")))
         self.signup_link = WebDriverWait(self.driver, 15).until(
-            EC.visibility_of_element_located((By.CSS_SELECTOR, ".login__image-container-btn")))
+            EC.visibility_of_element_located((By.CSS_SELECTOR, ".image-container-btn")))
         self.facebook_login = self.driver.find_element_by_xpath("//a[@class='social__icons-box-link facebook']")
         self.google_login = self.driver.find_element_by_xpath("//a[@class='social__icons-box-link google']")
         self.linkedin_login = self.driver.find_element_by_xpath("//a[@class='social__icons-box-link linkedin']")

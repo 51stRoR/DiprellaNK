@@ -1,3 +1,4 @@
+import sys
 import csv
 import pytest
 import os
@@ -18,10 +19,20 @@ def pytest_addoption(parser):
 def web_driver_setup(request):
     if pytest.config.getoption("--firefox"):
         request.cls.webdriver = webdriver.Firefox
-        request.cls.webdriver_path = os.path.join("web_drivers", "geckodriver")
+        if sys.platform == 'win32':
+            request.cls.webdriver_path = os.path.join("web_drivers", "windows", "geckodriver.exe")
+        elif sys.platform == 'linux':
+            request.cls.webdriver_path = os.path.join("web_drivers", "linux", "geckodriver")
+        else:
+            raise ValueError("Only Windows and Linux are supported")
     elif pytest.config.getoption("--chrome"):
         request.cls.webdriver = webdriver.Chrome
-        request.cls.webdriver_path = os.path.join("web_drivers", "chromedriver")
+        if sys.platform == 'win32':
+            request.cls.webdriver_path = os.path.join("web_drivers", "windows", "chromedriver.exe")
+        elif sys.platform == 'linux':
+            request.cls.webdriver_path = os.path.join("web_drivers", "linux", "chromedriver")
+        else:
+            raise ValueError("Only Windows and Linux are supported")
     else:
         raise ValueError("Browsers except Firefox and Chrome not allowed")
 
@@ -42,13 +53,3 @@ def pytest_generate_tests(metafunc):
     with open((pytest.config.getoption("--input-data")), 'r') as data:
         params_list = list(csv.reader(data))
     metafunc.parametrize("url, email, password, incorrect_email, incorrect_password", tuple(params_list))
-
-
-#### Dealing with the test failure. Taking the page screenshot ###
-def pytest_exception_interact(node, call, report):
-    if report.failed:
-        attach(
-            node.instance.initialized_webdriver.get_screenshot_as_png(),
-            name="Screenshot of the Diprella page on test fail",
-            attachment_type=attachment_type.PNG
-        )
