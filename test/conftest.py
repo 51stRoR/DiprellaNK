@@ -53,3 +53,13 @@ def pytest_generate_tests(metafunc):
     with open((pytest.config.getoption("--input-data")), 'r') as data:
         params_list = list(csv.reader(data))
     metafunc.parametrize("url, email, password, incorrect_email, incorrect_password", tuple(params_list))
+
+
+#### Dealing with the test failure. Taking the page screenshot ###
+def pytest_exception_interact(node, call, report):
+    if report.failed:
+        attach(
+            node.instance.initialized_webdriver.get_screenshot_as_png(),
+            name="Screenshot of the StackOverflow on test fail",
+            attachment_type=attachment_type.PNG
+        )
