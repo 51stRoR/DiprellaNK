@@ -55,11 +55,12 @@ def pytest_generate_tests(metafunc):
     metafunc.parametrize("url, email, password, incorrect_email, incorrect_password", tuple(params_list))
 
 
-#### Dealing with the test failure. Taking the page screenshot ###
+"""#### Dealing with the test failure. Taking the page screenshot ###
 def pytest_exception_interact(node, call, report):
     if report.failed:
         attach(
             node.instance.initialized_webdriver.get_screenshot_as_png(),
-            name="Screenshot of the StackOverflow on test fail",
+            name="Screenshot of the Diprella on test fail",
             attachment_type=attachment_type.PNG
         )
+"""
